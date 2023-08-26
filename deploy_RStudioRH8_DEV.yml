@@ -10,16 +10,16 @@
     - debug:
         msg: "Variables: _uid = {{ _uid }}, _pwd = **********"
 #       msg: "Variables: _uid = {{ _uid }}, _pwd = {{ _pwd }}"
-    - name: register RHEL7.5
+    - name: register RHEL8.6
       command: "/usr/bin/subscription-manager register --username {{ _uid }} --password {{ _pwd }} --auto-attach --force"
       when: _uid != "" and _pwd != ""
 #     command: "/usr/bin/subscription-manager register --username <name> --password <password> --auto-attach"
     - name: register RHEL7 repo
-      command: "/usr/bin/subscription-manager repos --enable=rhel-7-server-rpms --enable=rhel-7-server-extras-rpms --enable=rhel-7-server-optional-rpms"
+      command: "/usr/bin/subscription-manager repos --enable=rhel-8-server-rpms --enable=rhel-8-server-extras-rpms --enable=rhel-8-server-optional-rpms"
     - name: register RHEL7 RHSCL Repo
-      shell: "/usr/bin/subscription-manager repos --enable=rhel-server-rhscl-7-rpms"
+      shell: "/usr/bin/subscription-manager repos --enable=rhel-server-rhscl-8-rpms"
     - name: register RHEL7 DevTools
-      shell: "/usr/bin/subscription-manager repos --enable=rhel-7-server-devtools-rpms"
+      shell: "/usr/bin/subscription-manager repos --enable=rhel-8-server-devtools-rpms"
     - name: list RHEL enabled repos
       shell: "/usr/bin/subscription-manager repos --list-enabled"
       register: enabled_repos
@@ -27,7 +27,7 @@
         msg: "RHEL Enabled Repos: {{ enabled_repos }}" 
 # tasks:
 #   - name: download epel
-#     shell:  wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -O /tmp/epel-release-latest-7.noarch.rpm   
+#     shell:  wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm -O /tmp/epel-release-latest-8.noarch.rpm   
 #   - name: Install epel
 #     shell:  yum -y localinstall /tmp/epel*rpm
 #
@@ -93,17 +93,17 @@
 #       gpgcheck=0' >> /etc/yum.repos.d/local.repo
   roles:
 #   - umask
-    - epel7
-    - devtools7
-    - r_RH7
-    - r-studio-desktopRH7
-    - r-studio-serverRH7
-    - r-studio-server-configRH7
-    - r-shinyRH7
-    - r-shiny-configRH7
+    - epel8
+    - devtoolsj
+    - r_RH8
+    - r-studio-desktopRH8
+    - r-studio-serverRH8
+    - r-studio-server-configRH8
+    - r-shinyRH8
+    - r-shiny-configRH8
 
   post_tasks:
-#   - name: remove RHEL7.5
+#   - name: remove RHEL8.6
 #     command:  "/usr/bin/subscription-manager remove --all"
 #   - name: unregister RHEL7.5
 #     command:  "/usr/bin/subscription-manager unregister"
