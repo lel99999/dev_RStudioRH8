@@ -14,12 +14,15 @@
       command: "/usr/bin/subscription-manager register --username {{ _uid }} --password {{ _pwd }} --auto-attach --force"
       when: _uid != "" and _pwd != ""
 #     command: "/usr/bin/subscription-manager register --username <name> --password <password> --auto-attach"
-    - name: register RHEL8 repo
-      command: "/usr/bin/subscription-manager repos --enable=rhel-8-server-rpms --enable=rhel-8-server-extras-rpms --enable=rhel-8-server-optional-rpms"
-    - name: register RHEL8 RHSCL Repo
-      shell: "/usr/bin/subscription-manager repos --enable=rhel-server-rhscl-8-rpms"
-    - name: register RHEL8 DevTools
-      shell: "/usr/bin/subscription-manager repos --enable=rhel-8-server-devtools-rpms"
+    - name: Enable RHEL8 repo
+#     command: "/usr/bin/subscription-manager repos --enable=rhel-8-for-x86_64-baseos-rhui-rpms --enable=rhel-8-for-x86_64-appstream-rhui-rpms"
+      command: "/usr/bin/subscription-manager repos --enable rhel-8-for-x86_64-appstream-rpms --enable rhel-8-for-x86_64-baseos-rpms"
+#   - name: register RHEL8 RHSCL Repo
+#     shell: "/usr/bin/subscription-manager repos --enable=rhel-server-rhscl-8-rpms"
+    - name: Install RHEL8 DevTools 12
+      dnf:
+        name: gcc-toolset-12
+        state: present
     - name: list RHEL8 enabled repos
       shell: "/usr/bin/subscription-manager repos --list-enabled"
       register: enabled_repos
