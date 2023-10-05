@@ -12,7 +12,8 @@ Vagrant.configure("2") do |config|
 # end
 
   config.vm.define "rstudioRH8" do |rstudioRH8|
-    rstudioRH8.vm.box = "clouddood/RH8.6_infra"
+#   rstudioRH8.vm.box = "clouddood/RH8.6_infra"
+    rstudioRH8.vm.box = "clouddood/RHEL8.8_base"
     rstudioRH8.vm.hostname = "rstudioRH8"
     rstudioRH8.vm.network "private_network", ip: "192.168.60.151"
     rstudioRH8.vm.provision "shell", :inline => "sudo echo '192.168.60.151 rstudioRH8.local rstudioRH8' >> /etc/hosts"
